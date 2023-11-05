@@ -1,2 +1,0 @@
-echo "Ana"
-echo "milena"
