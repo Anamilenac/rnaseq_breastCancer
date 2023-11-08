@@ -6,7 +6,7 @@ SOURCE=/data/courses/rnaseq_course/breastcancer_de
 # rm -r $PATH_DATA/reads
 
 echo "copying reads"
-cp -v -r $SOURCE $PATH_DATA
+cp --verbose --recursive $SOURCE $PATH_DATA
 
 # echo "uncompressing reads"
 # gunzip -k $PATH_DATA/breastcancer_de/reads/*.gz
