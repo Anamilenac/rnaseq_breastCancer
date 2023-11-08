@@ -10,14 +10,21 @@
 #SBATCH --error=/data/users/acastro/slurm_tutorial/error_fastqc_%j.e
 
 # module avail
-module add UHTS/Quality_control/fastqc/0.11.9
+# module add UHTS/Quality_control/fastqc/0.11.9
 
 PATH_READS=/data/users/acastro/rnaseq_course/breast_cancer/data/breastcancer_de/reads
 PATH_OUTPUT_ANLYSIS=/data/users/acastro/rnaseq_course/breast_cancer/analysis_step/quality_control
 
-rm --recursive $PATH_OUTPUT_ANLYSIS
+
+# rm --recursive $PATH_OUTPUT_ANLYSIS
 
 mkdir --parents $PATH_OUTPUT_ANLYSIS 
 
 echo "Analyzing quality control"
 fastqc --outdir $PATH_OUTPUT_ANLYSIS $PATH_READS/*.gz
+
+echo "Generating MultiQC report"
+module add UHTS/Analysis/MultiQC/1.8
+multiqc --outdir $PATH_OUTPUT_ANLYSIS $PATH_OUTPUT_ANLYSIS
+
+
