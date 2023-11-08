@@ -19,4 +19,5 @@ rm --recursive $PATH_OUTPUT_ANLYSIS
 
 mkdir --parents $PATH_OUTPUT_ANLYSIS 
 
+echo "Analyzing quality control"
 fastqc --outdir $PATH_OUTPUT_ANLYSIS $PATH_READS/*.gz
