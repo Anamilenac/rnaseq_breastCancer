@@ -3,28 +3,31 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1000M
 #SBATCH --time=01:00:00
-#SBATCH --job-name=run_fastqc
+#SBATCH --job-name=quality_control
 #SBATCH --mail-user=ana.castromarquez@students.unibe.ch
 #SBATCH --mail-type=begin,end
-#SBATCH --output=/data/users/acastro/slurm_tutorial/output_fastqc_%j.o
-#SBATCH --error=/data/users/acastro/slurm_tutorial/error_fastqc_%j.e
+#SBATCH --output=/data/users/acastro/log/output_quality_%j.o
+#SBATCH --error=/data/users/acastro/log/error_quality_%j.e
+
+READS_DIR=/data/users/$USER/breast_cancer/data/reads
+QUALITY_CONTROL_DIR=/data/users/$USER/breast_cancer/analysis/quality_control
+
+# Go to working directory 
+# cd /data/users/$USER
+
+# Create directories to results of quality control 
+mkdir --parents $QUALITY_CONTROL_DIR
 
 # module avail
-# module add UHTS/Quality_control/fastqc/0.11.9
+module add UHTS/Quality_control/fastqc/0.11.9
 
-PATH_READS=/data/users/acastro/rnaseq_course/breast_cancer/data/breastcancer_de/reads
-PATH_OUTPUT_ANLYSIS=/data/users/acastro/rnaseq_course/breast_cancer/analysis_step/quality_control
-
-
-# rm --recursive $PATH_OUTPUT_ANLYSIS
-
-mkdir --parents $PATH_OUTPUT_ANLYSIS 
-
+# Perform quality Control 
 echo "Analyzing quality control"
-fastqc --outdir $PATH_OUTPUT_ANLYSIS $PATH_READS/*.gz
+fastqc --outdir $QUALITY_CONTROL_DIR $READS_DIR/*.gz
 
+# Generate multiqc
 echo "Generating MultiQC report"
 module add UHTS/Analysis/MultiQC/1.8
-multiqc --outdir $PATH_OUTPUT_ANLYSIS $PATH_OUTPUT_ANLYSIS
+multiqc --outdir $QUALITY_CONTROL_DIR $QUALITY_CONTROL_DIR
 
 
