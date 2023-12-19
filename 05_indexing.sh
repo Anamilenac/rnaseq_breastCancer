@@ -6,25 +6,27 @@
 #SBATCH --job-name=indexing
 #SBATCH --mail-user=ana.castromarquez@students.unibe.ch
 #SBATCH --mail-type=begin,end
-#SBATCH --output=/data/users/acastro/log/output_indexing_%j.o
-#SBATCH --error=/data/users/acastro/log/error_indexing_%j.e
-
-REFERENCE_DIR=/data/users/$USER/breast_cancer/data/reference
-HISAT2_DIR=/data/users/$USER/breast_cancer/data/reference/hisat2
+#SBATCH --output=/data/users/acastro/breast_cancer/log/output_indexing_%j.o
+#SBATCH --error=/data/users/acastro/breast_cancer/log/error_indexing_%j.e
 
 # Go to working directory
 # cd /data/users/$USER
 
-Create directory to save reference genoma 
-# mkdir --parents $REFERENCE_DIR
+REFERENCE_DIR=/data/users/$USER/breast_cancer/data/reference
+HISAT2_DIR=/data/users/$USER/breast_cancer/data/reference/hisat2
+
+# Create directory to save reference genoma
+mkdir --parents $REFERENCE_DIR
 
 # Create directory to save index
 mkdir --parents $HISAT2_DIR
 
-# Download the reference genome
-# wget -P $REFERENCE_DIR https://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+# Copy locally reference genome and index
+cp --verbose --recursive /data/courses/rnaseq_course/breastcancer_de/shared_workspace/Homo_sapiens.GRCh38.110.gtf $REFERENCE_DIR
+cp --verbose --recursive /data/courses/rnaseq_course/breastcancer_de/Homo_sapiens.GRCh38.dna.primary_assembly.fa $REFERENCE_DIR
 
-# Indexing the reference genoma
+# Optional, download the reference genome
+# wget -P $REFERENCE_DIR https://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
 
 # module avail
 module add UHTS/Aligner/hisat/2.2.1
@@ -36,8 +38,8 @@ module add UHTS/Aligner/hisat/2.2.1
 echo "Indexing the reference genoma"
 hisat2-build -p 16 $REFERENCE_DIR/Homo_sapiens.GRCh38.dna.primary_assembly.fa $HISAT2_DIR/Homo_sapiens.GRCh38.dna.primary_assembly.fa
 
-# optional instead of download the reference genome
-# cp --verbose --recursive /data/courses/rnaseq_course/breastcancer_de/shared_wor $READS_DIR
+
+
 
 
 
