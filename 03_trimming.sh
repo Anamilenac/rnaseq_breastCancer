@@ -6,14 +6,14 @@
 #SBATCH --job-name=trimmomatic
 #SBATCH --mail-user=ana.castromarquez@students.unibe.ch
 #SBATCH --mail-type=begin,end
-#SBATCH --output=/data/users/acastro/log/output_trim_%j.o
-#SBATCH --error=/data/users/acastro/log/error_trim_%j.e
-
-READS_DIR=/data/users/$USER/breast_cancer/data/reads
-TRIMMING_DIR=/data/users/$USER/breast_cancer/analysis/trimming
+#SBATCH --output=/data/users/acastro/breast_cancer/log/output_trim_%j.o
+#SBATCH --error=/data/users/acastro/breast_cancer/log/error_trim_%j.e
 
 # Go to working directory
 # cd /data/users/$USER
+
+READS_DIR=/data/users/$USER/breast_cancer/data/reads
+TRIMMING_DIR=/data/users/$USER/breast_cancer/analysis/trimming
 
 # Create directories to sava results of trimming
 mkdir --parents $TRIMMING_DIR
