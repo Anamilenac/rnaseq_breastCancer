@@ -11,7 +11,7 @@
 #SBATCH --error=/data/users/acastro/breast_cancer/log/error_indexbam_%j.e
 
 # Go to working directory
-# cd /data/users/$USER
+# cd /data/users/$USER/breast_cancer
 
 BAM_DIR=/data/users/$USER/breast_cancer/analysis/bam
 SAMPLELIST=/data/users/$USER/breast_cancer/script/samplelist.tsv
