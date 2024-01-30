@@ -2,8 +2,8 @@
 
 This repository contains code used for bioinformatics data analysis included in:
 
-Project: Characterize Gene Expression Differences Between Human Breast Cancer Subtypes
-Date: January 2024
+Project: Characterize Gene Expression Differences Between Human Breast Cancer Subtypes  
+Date: January 2024  
 Author: Ana Milena Castro Marquez
 
 # Data Availability
