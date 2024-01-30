@@ -13,10 +13,10 @@ mRNA sequencing data used in the project is a subset of the data from Eswaran et
 The dataset includes Illumina sequencing reads obtained through paired-end sequencing. Each sample is represented by two files, corresponding to read 1 and read 2.
 
 The subset used in this project corresponds to three replicates for each of the following experimental groups, each originating from three different subtypes of human breast tumors, and three replicates of healthy control samples:
-TNBC: Triple-negative breast cancer
-NonTNBC: Non-triple-negative breast cancer
-HER2: HER2-positive breast cancer
-Normal: Healthy controls
+1. TNBC: Triple-negative breast cancer
+2. NonTNBC: Non-triple-negative breast cancer
+3. HER2: HER2-positive breast cancer
+4. Normal: Healthy controls
 Replicates are identified with a number appended to the experimental group (e.g., HER21 for the first replicate in HER2), followed by reads _R1 and _R2.
 
 # Data Analysis
