@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Go to working directory
-# cd /data/users/$USER
+# cd /data/users/$USER/breast_cancer
 
 READS_DIR=/data/users/$USER/breast_cancer/data/reads
 
@@ -17,3 +17,10 @@ echo "uncompressing reads"
 gunzip -k $READS_DIR/*.gz
 
 
+###########################################
+
+# Create directories to save analisis  
+mkdir --parents /data/users/$USER/breast_cancer/analysis
+
+# Create directories to save logs  
+mkdir --parents /data/users/$USER/breast_cancer/log
