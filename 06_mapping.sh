@@ -12,7 +12,7 @@
 #SBATCH --partition=pall
 
 # Go to working directory
-# cd /data/users/$USER
+# cd /data/users/$USER/breast_cancer
 
 REFERENCE_DIR=/data/users/$USER/breast_cancer/data/reference
 BAM_DIR=/data/users/$USER/breast_cancer/analysis/bam
