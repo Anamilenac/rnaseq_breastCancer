@@ -16,7 +16,8 @@ The subset used in this project corresponds to three replicates for each of the 
 1. TNBC: Triple-negative breast cancer
 2. NonTNBC: Non-triple-negative breast cancer
 3. HER2: HER2-positive breast cancer
-4. Normal: Healthy controls
+4. Normal: Healthy controls  
+
 Replicates are identified with a number appended to the experimental group (e.g., HER21 for the first replicate in HER2), followed by reads _R1 and _R2.
 
 # Data Analysis
