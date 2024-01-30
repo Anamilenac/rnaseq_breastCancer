@@ -10,7 +10,7 @@
 #SBATCH --error=/data/users/acastro/breast_cancer/log/error_indexing_%j.e
 
 # Go to working directory
-# cd /data/users/$USER
+# cd /data/users/$USER/breast_cancer
 
 REFERENCE_DIR=/data/users/$USER/breast_cancer/data/reference
 HISAT2_DIR=/data/users/$USER/breast_cancer/data/reference/hisat2
