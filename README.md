@@ -2,7 +2,6 @@
 
 This repository contains code used for bioinformatics data analysis of the project " Characterize Gene Expression Differences Between Human Breast Cancer Subtypes"   
 **Date:**  January 2024    
-**Author:**  Ana Milena Castro Marquez  
 
 # Data Availability
 
@@ -16,7 +15,7 @@ The subset used in this project corresponds to three replicates for each of the 
 - **HER2:** HER2-positive breast cancer
 - **Normal:** Healthy controls  
 
-Replicates are identified with a number appended to the experimental group (e.g., HER21 for the first replicate in HER2), followed by reads _R1 and _R2.
+Replicates are identified with a number appended to the experimental group (e.g., TNBC1 for the first replicate in TNBC), followed by reads _R1 and _R2.
 
 # Data Analysis
 
