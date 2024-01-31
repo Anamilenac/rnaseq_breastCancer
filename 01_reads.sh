@@ -19,7 +19,7 @@ gunzip -k $READS_DIR/*.gz
 
 ###########################################
 
-# Create directories to save analisis  
+# Create directories to save analysis  
 mkdir --parents /data/users/$USER/breast_cancer/analysis
 
 # Create directories to save logs  
