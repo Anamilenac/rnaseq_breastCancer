@@ -31,6 +31,6 @@ The code is divided into 10 script files.
 - 08_index_bam
 - 09_feature_counts
 - 10_clean_feature_counts
-- 11_DGE.R
+- 11_DEG
 
 In order to replicate the code, names of analyses and output folders can be set.
