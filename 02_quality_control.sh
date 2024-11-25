@@ -4,7 +4,6 @@
 #SBATCH --mem-per-cpu=1000M
 #SBATCH --time=01:00:00
 #SBATCH --job-name=quality_control
-#SBATCH --mail-user=ana.castromarquez@students.unibe.ch
 #SBATCH --mail-type=begin,end
 #SBATCH --output=/data/users/acastro/breast_cancer/log/output_quality_%j.o
 #SBATCH --error=/data/users/acastro/breast_cancer/log/error_quality_%j.e
