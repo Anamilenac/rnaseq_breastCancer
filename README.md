@@ -23,13 +23,13 @@ The code is divided into 10 script files.
 
 - 01_reads 
 - 02_quality_control
-- 05_indexing
-- 06_1_list
-- 06_mapping
-- 07_samtobam
-- 08_index_bam
-- 09_feature_counts
-- 10_clean_feature_counts
-- 11_DEG
+- 03_indexing
+- 03_1_list
+- 04_mapping
+- 05_samtobam
+- 06_index_bam
+- 07_feature_counts
+- 08_clean_feature_counts
+- 09_DEG
 
 In order to replicate the code, names of analyses and output folders can be set.
