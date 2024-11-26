@@ -28,5 +28,3 @@ fastqc --outdir $QUALITY_CONTROL_DIR $READS_DIR/*.gz
 echo "Generating MultiQC report"
 module add UHTS/Analysis/MultiQC/1.8
 multiqc --outdir $QUALITY_CONTROL_DIR $QUALITY_CONTROL_DIR
-
-

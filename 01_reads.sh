@@ -12,15 +12,14 @@ mkdir --parents /data/users/$USER/breast_cancer/data
 # echo "copying reads"
 cp --verbose --recursive /data/courses/rnaseq_course/breastcancer_de/reads/ $READS_DIR
 
-# Unconpress reads
+# Uncompress reads
 echo "uncompressing reads"
 gunzip -k $READS_DIR/*.gz
 
-
 ###########################################
 
-# Create directories to save analysis  
+# Create directories to save analysis
 mkdir --parents /data/users/$USER/breast_cancer/analysis
 
-# Create directories to save logs  
+# Create directories to save logs
 mkdir --parents /data/users/$USER/breast_cancer/log

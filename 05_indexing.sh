@@ -4,7 +4,6 @@
 #SBATCH --mem-per-cpu=8000M
 #SBATCH --time=03:00:00
 #SBATCH --job-name=indexing
-#SBATCH --mail-user=ana.castromarquez@students.unibe.ch
 #SBATCH --mail-type=begin,end
 #SBATCH --output=/data/users/acastro/breast_cancer/log/output_indexing_%j.o
 #SBATCH --error=/data/users/acastro/breast_cancer/log/error_indexing_%j.e
@@ -37,19 +36,3 @@ module add UHTS/Aligner/hisat/2.2.1
 
 echo "Indexing the reference genoma"
 hisat2-build -p 16 $REFERENCE_DIR/Homo_sapiens.GRCh38.dna.primary_assembly.fa $HISAT2_DIR/Homo_sapiens.GRCh38.dna.primary_assembly.fa
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

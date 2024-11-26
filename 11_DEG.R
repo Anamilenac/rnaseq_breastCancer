@@ -16,7 +16,7 @@ library(enrichplot)
 
 # Set working directory
 setwd(
-  "/data/users/acastro/breast_cancer/analysis/feature_counts/"
+  "/data/users/$user/breast_cancer/analysis/feature_counts/"
 )
 
 ##############################   Load Data Frames     ################################
@@ -43,21 +43,25 @@ head(counts)
 dim(counts) # Visualize 12 samples
 
 # Assign conditions, the experimental groups of cancer cells
-coldata <- data.frame("condition" = as.factor(c(
-  rep("HER2", 3),
-  rep("NonTNBC", 3),
-  rep("Normal", 3),
-  rep("TNBC", 3)
-)),
-row.names = colnames(counts))
+coldata <- data.frame(
+  "condition" = as.factor(c(
+    rep("HER2", 3),
+    rep("NonTNBC", 3),
+    rep("Normal", 3),
+    rep("TNBC", 3)
+  )),
+  row.names = colnames(counts)
+)
 head(coldata)
 dim(coldata)
 
 # Create a DESeqDataSet object
 # Normalize to identify the differential expressions genes
-dds <- DESeqDataSetFromMatrix(countData = counts,
-                              colData = coldata,
-                              design = ~ condition)
+dds <- DESeqDataSetFromMatrix(
+  countData = counts,
+  colData = coldata,
+  design = ~condition
+)
 
 # Data transformation and visualisation
 vsd <- vst(dds, blind = TRUE)
@@ -78,8 +82,9 @@ sampleDistMatrix <- as.matrix(sampleDists)
 head(sampleDistMatrix)
 
 rownames(sampleDistMatrix) <- paste(rld$condition,
-                                    rld$type,
-                                    sep = "-")
+  rld$type,
+  sep = "-"
+)
 
 png(
   "heatmap1.png",
@@ -105,8 +110,9 @@ dev.off()
 plotPCA <- plotPCA(rld, intgroup = "condition", ntop = 500)
 
 ggsave("PCA_plot.png",
-       plot = plotPCA,
-       dpi = 300) # Save plot
+  plot = plotPCA,
+  dpi = 300
+) # Save plot
 graphics.off()
 
 
@@ -133,7 +139,7 @@ summary(res.nonTNBCvsHER)
 
 # Filter for genes with nonzero total read count
 res.nonTNBCvsHER.f <-
-  res.nonTNBCvsHER[res.nonTNBCvsHER$baseMean > 0,]
+  res.nonTNBCvsHER[res.nonTNBCvsHER$baseMean > 0, ]
 
 # Add name column ENSMBL
 res.nonTNBCvsHER.f <- as.data.frame(res.nonTNBCvsHER.f) %>%
@@ -155,9 +161,11 @@ ensembl <-
 listEnsemblArchives()
 listEnsembl(version = 110)
 
-ensembl110 <- useEnsembl(biomart = "genes",
-                         dataset = "hsapiens_gene_ensembl",
-                         version = 110)
+ensembl110 <- useEnsembl(
+  biomart = "genes",
+  dataset = "hsapiens_gene_ensembl",
+  version = 110
+)
 ensembl110
 
 gene_data1 <- getBM(
@@ -176,11 +184,12 @@ gene_data1
 
 # Join results with gene_data
 sig.nonTNBCvsHER.j <- left_join(res.nonTNBCvsHER.f,
-                                gene_data1,
-                                by = c("ENSEMBL" = "ensembl_gene_id"))
+  gene_data1,
+  by = c("ENSEMBL" = "ensembl_gene_id")
+)
 
 sig.nonTNBCvsHER.s <-
-  sig.nonTNBCvsHER.j[order(sig.nonTNBCvsHER.j$padj),]
+  sig.nonTNBCvsHER.j[order(sig.nonTNBCvsHER.j$padj), ]
 sig.nonTNBCvsHER.s
 
 sig.nonTNBCvsHER.s
@@ -202,8 +211,9 @@ volcano_plot_NonTNBCvsHER <- EnhancedVolcano(
   xlim = c(-20, 20)
 )
 ggsave("volcano_plot_NonTNBCvsHER.png",
-       plot = volcano_plot_NonTNBCvsHER,
-       dpi = 300) # Save plot
+  plot = volcano_plot_NonTNBCvsHER,
+  dpi = 300
+) # Save plot
 graphics.off()
 
 
@@ -230,7 +240,7 @@ res.TNBCvsHER <- results(
 summary(res.TNBCvsHER)
 
 # Filter for genes with nonzero total read count
-res.TNBCvsHER.f <- res.TNBCvsHER[res.TNBCvsHER$baseMean > 0,]
+res.TNBCvsHER.f <- res.TNBCvsHER[res.TNBCvsHER$baseMean > 0, ]
 dim(res.TNBCvsHER.f)
 
 # Add name column ENSMBL
@@ -257,12 +267,13 @@ dim(gene_data2)
 
 # Join results with gene_data
 sig.TNBCvsHER.j <- left_join(res.TNBCvsHER.f,
-                             gene_data2,
-                             by = c("ENSEMBL" = "ensembl_gene_id"))
+  gene_data2,
+  by = c("ENSEMBL" = "ensembl_gene_id")
+)
 dim(sig.TNBCvsHER.j)
 
 # order padj value
-sig.TNBCvsHER.s <- sig.TNBCvsHER.j[order(sig.TNBCvsHER.j$padj),]
+sig.TNBCvsHER.s <- sig.TNBCvsHER.j[order(sig.TNBCvsHER.j$padj), ]
 sig.TNBCvsHER.s
 dim(sig.TNBCvsHER.s)
 
@@ -281,8 +292,9 @@ volcano_plot_TNBCvsHER <- EnhancedVolcano(
   xlim = c(-20, 20)
 )
 ggsave("volcano_plot_TNBCvsHER2.png",
-       plot = volcano_plot_TNBCvsHER,
-       dpi = 300) # Save plot
+  plot = volcano_plot_TNBCvsHER,
+  dpi = 300
+) # Save plot
 graphics.off()
 
 # Genes are differential expressed (DE) in the pairwise comparison padj < 0.5
@@ -305,7 +317,7 @@ summary(res.NonTNBCvsTNBC)
 
 # Filter for genes with nonzero total read count
 res.NonTNBCvsTNBC.f <-
-  res.NonTNBCvsTNBC[res.NonTNBCvsTNBC$baseMean > 0,]
+  res.NonTNBCvsTNBC[res.NonTNBCvsTNBC$baseMean > 0, ]
 dim(res.NonTNBCvsTNBC.f)
 
 # Add name column ENSMBL
@@ -332,13 +344,14 @@ dim(gene_data2)
 
 # Join results with gene_data
 sig.NonTNBCvsTNBC.j <- left_join(res.NonTNBCvsTNBC.f,
-                                 gene_data2,
-                                 by = c("ENSEMBL" = "ensembl_gene_id"))
+  gene_data2,
+  by = c("ENSEMBL" = "ensembl_gene_id")
+)
 dim(sig.NonTNBCvsTNBC.j)
 
 # order padj value
 sig.NonTNBCvsTNBC.s <-
-  sig.NonTNBCvsTNBC.j[order(sig.NonTNBCvsTNBC.j$padj),]
+  sig.NonTNBCvsTNBC.j[order(sig.NonTNBCvsTNBC.j$padj), ]
 sig.NonTNBCvsTNBC.s
 dim(sig.NonTNBCvsTNBC.s)
 
@@ -357,8 +370,9 @@ volcano_plot_NonTNBCvsTNBC <- EnhancedVolcano(
   xlim = c(-20, 20)
 )
 ggsave("volcano_plot_NonTNBCvsTNBC.png",
-       plot = volcano_plot_NonTNBCvsTNBC,
-       dpi = 300) # Save plot
+  plot = volcano_plot_NonTNBCvsTNBC,
+  dpi = 300
+) # Save plot
 graphics.off()
 
 # Genes are differential expressed (DE) in the pairwise comparison padj < 0.5
@@ -382,7 +396,7 @@ summary(res.TNBCvsNormal)
 
 # Filter for genes with nonzero total read count
 res.TNBCvsNormal.f <-
-  res.TNBCvsNormal[res.TNBCvsNormal$baseMean > 0,]
+  res.TNBCvsNormal[res.TNBCvsNormal$baseMean > 0, ]
 dim(res.TNBCvsNormal.f)
 
 # Add name column ENSMBL
@@ -409,13 +423,14 @@ dim(gene_data2)
 
 # Join results with gene_data
 sig.TNBCvsNormal.j <- left_join(res.TNBCvsNormal.f,
-                                gene_data2,
-                                by = c("ENSEMBL" = "ensembl_gene_id"))
+  gene_data2,
+  by = c("ENSEMBL" = "ensembl_gene_id")
+)
 dim(sig.TNBCvsNormal.j)
 
 # order padj value
 sig.TNBCvsNormal.s <-
-  sig.TNBCvsNormal.j[order(sig.TNBCvsNormal.j$padj),]
+  sig.TNBCvsNormal.j[order(sig.TNBCvsNormal.j$padj), ]
 sig.TNBCvsNormal.s
 dim(sig.TNBCvsNormal.s)
 
@@ -434,8 +449,9 @@ volcano_plot_TNBCvsNormal <- EnhancedVolcano(
   xlim = c(-20, 20)
 )
 ggsave("volcano_plot_TNBCvsNormal.png",
-       plot = volcano_plot_TNBCvsNormal,
-       dpi = 300) # Save plot
+  plot = volcano_plot_TNBCvsNormal,
+  dpi = 300
+) # Save plot
 graphics.off()
 
 # Genes are differential expressed (DE) in the pairwise comparison padj < 0.5
@@ -447,7 +463,7 @@ dim(sig.TNBCvsNormal)
 
 ########################## DESeq analysis genes selected ########################
 
-# Selected genes were evaluated to analyze number of normalized counts between contrasts. 
+# Selected genes were evaluated to analyze number of normalized counts between contrasts.
 # List of genes to analyze
 genes_to_analyze <- c("RIMS4", "CDKN2A", "KCNK15", "HRCT1", "FSIP1", "FOXA1")
 
@@ -474,27 +490,31 @@ gene_data.norm <-
 # Join results with gene_data
 merged_data.norm <-
   left_join(normalized_counts_df,
-            gene_data.norm,
-            by = c("ENSEMBL" = "ensembl_gene_id"))
+    gene_data.norm,
+    by = c("ENSEMBL" = "ensembl_gene_id")
+  )
 
 # Function to create bar plots
 create_gene_bar_plot <- function(gene_name) {
   # Extract gene expression data for the specific gene
   gene_index <- which(merged_data.norm$hgnc_symbol == gene_name)
   gene_data <- merged_data.norm[gene_index, grep("HER|NonTNBC|TNBC|Normal",
-                                                 colnames(merged_data.norm),
-                                                 value = TRUE)]
-  
-  plot_data <- data.frame(Sample = names(gene_data),
-                          Expression = as.numeric(gene_data),
-                          Gene = gene_name)
-  
+    colnames(merged_data.norm),
+    value = TRUE
+  )]
+
+  plot_data <- data.frame(
+    Sample = names(gene_data),
+    Expression = as.numeric(gene_data),
+    Gene = gene_name
+  )
+
   # Create the bar plot
   gg_plot <- ggplot(plot_data, aes(x = Sample, y = Expression, fill = Sample)) +
     geom_bar(stat = "identity") +
     labs(title = gene_name, y = "Normalized counts") +
     theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
-  
+
   return(gg_plot)
 }
 
@@ -764,7 +784,7 @@ png(
 cnetplot(edox3, circular = TRUE, colorEdge = TRUE)
 dev.off()
 
-# Generate a single figure combining plots 
+# Generate a single figure combining plots
 plot1 <- dotplot(ego1, showCategory = 8) + ggtitle("NonTNBC vs HER2")
 plot2 <- dotplot(ego2, showCategory = 10) + ggtitle("TNBC vs HER2")
 plot3 <- dotplot(ego3, showCategory = 10) + ggtitle("NonTNBC vs TNBC")
@@ -802,35 +822,38 @@ data <- data.frame(
 
 data_long <- tidyr::gather(data, key = "Sample", value = "Value", -Status)
 
-# Stacked bar plot 
+# Stacked bar plot
 ggplot(data_long, aes(x = Sample, y = Value, fill = Status)) +
   geom_bar(stat = "identity") +
-  labs(title = "B",
-       y = "Count (in million)") +
+  labs(
+    title = "B",
+    y = "Count (in million)"
+  ) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_fill_manual(values = c("Assigned" = "#0b7a75", 
-                               "Unassigned_Unmapped" = "red", 
-                               "Unassigned_MultiMapping" = "#ab4a43", 
-                               "Unassigned_NoFeatures" = "#aba194", 
-                               "Unassigned_Ambiguity" = "#d39f94"))
+  scale_fill_manual(values = c(
+    "Assigned" = "#0b7a75",
+    "Unassigned_Unmapped" = "red",
+    "Unassigned_MultiMapping" = "#ab4a43",
+    "Unassigned_NoFeatures" = "#aba194",
+    "Unassigned_Ambiguity" = "#d39f94"
+  ))
 
 
-ggsave("stacked_bar_plot.png", 
-       plot = last_plot() +
-         theme_minimal() +  
-         theme(panel.background = element_rect(fill = "white"),
-               axis.text.x = element_text(angle = 45, hjust = 1, size = 12, color = "black"),  
-               axis.text.y = element_text(size = 13, color = "black"),  
-               axis.title = element_text(size = 13, color = "black"),  
-               legend.position = "right", 
-               legend.text = element_text(size = 13, color = "black"),  
-               plot.title = element_text(size = 13, color = "black")  
-         ), 
-       width = 12,  
-       height = 6, 
-       dpi = 300,
-       bg = "white"  
+ggsave("stacked_bar_plot.png",
+  plot = last_plot() +
+    theme_minimal() +
+    theme(
+      panel.background = element_rect(fill = "white"),
+      axis.text.x = element_text(angle = 45, hjust = 1, size = 12, color = "black"),
+      axis.text.y = element_text(size = 13, color = "black"),
+      axis.title = element_text(size = 13, color = "black"),
+      legend.position = "right",
+      legend.text = element_text(size = 13, color = "black"),
+      plot.title = element_text(size = 13, color = "black")
+    ),
+  width = 12,
+  height = 6,
+  dpi = 300,
+  bg = "white"
 )
-
-
