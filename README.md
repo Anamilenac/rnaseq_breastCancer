@@ -16,20 +16,3 @@ The subset used in this project corresponds to three replicates for each of the 
 - **Normal:** Healthy controls  
 
 Replicates are identified with a number appended to the experimental group (e.g., TNBC1 for the first replicate in TNBC), followed by reads _R1 and _R2.
-
-# Data Analysis
-
-The code is divided into 10 script files.
-
-- 01_reads 
-- 02_quality_control
-- 03_indexing
-- 03_1_list
-- 04_mapping
-- 05_samtobam
-- 06_index_bam
-- 07_feature_counts
-- 08_clean_feature_counts
-- 09_DEG
-
-In order to replicate the code, names of analyses and output folders can be set.
